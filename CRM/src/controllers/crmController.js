@@ -33,16 +33,19 @@ export const getContactWithId = (req, res) => {
 };
 
 export const updateContact = (req, res) => {
-    Contact.findOneAndUpdate({
-        _id: req.params.contactId}, 
-        req.body,
-        {
-            new: true //get new data
-        },
-        (err, contact) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(contact);
-        });
+    Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, {new: true }, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(contact);
+    });
+};
+
+export const deleteContact = (req, res) => {
+    Contact.remove({ _id: req.params.contactId}, (err) => {
+        if (err){
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted contact'});
+    });
 };
